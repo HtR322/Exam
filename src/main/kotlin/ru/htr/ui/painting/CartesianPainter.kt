@@ -5,17 +5,6 @@ import java.awt.*
 class CartesianPainter(private val plane: CartesianPlane) : Painter {
     var axesColor: Color = Color.BLACK
 
-    override var height: Int
-        get() = plane.height
-        set(value) {
-            plane.height = value
-        }
-
-    override var width: Int
-        get() = plane.width
-        set(value) {
-            plane.width = value
-        }
 
     override fun paint(g: Graphics) {
         paintAxes(g)

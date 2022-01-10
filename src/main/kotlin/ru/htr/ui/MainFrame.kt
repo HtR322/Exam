@@ -52,8 +52,6 @@ class MainFrame: JFrame() {
         val cartesianPainter = CartesianPainter(plane)
         val painters = mutableListOf(cartesianPainter)
 
-
-
         mainPanel = GraphicsPanel(painters).apply {
             background = Color.WHITE
         }
@@ -104,12 +102,15 @@ class MainFrame: JFrame() {
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
-                createParallelGroup()
+                createSequentialGroup()
                     .addGap(4)
                     .addGroup(
                         createParallelGroup()
                             .addComponent(
-                                mainPanel
+                                mainPanel,
+                                GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.DEFAULT_SIZE
                             )
                             .addComponent(
                                 controlPanel,
@@ -124,7 +125,10 @@ class MainFrame: JFrame() {
                 createSequentialGroup()
                     .addGap(4)
                     .addComponent(
-                        mainPanel
+                        mainPanel,
+                        GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE
                     )
                     .addGap(4)
                     .addComponent(
@@ -142,129 +146,52 @@ class MainFrame: JFrame() {
                     .addGap(20,20, Int.MAX_VALUE)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMinLbl,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE
-                            )
-                            .addComponent(
-                                yMinLbl,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE
-                            )
+                            .addComponent(xMinLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
+                            .addComponent(yMinLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMin,
-                                100,
-                                100,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                yMin,
-                                100,
-                                100,
-                                GroupLayout.PREFERRED_SIZE
-                            )
+                            .addComponent(xMin, 100,100,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yMin, 100,100,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(40)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMaxLbl,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE
-                            )
-                            .addComponent(
-                                yMaxLbl,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE
-                            )
+                            .addComponent(xMaxLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
+                            .addComponent(yMaxLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMax,
-                                100,
-                                100,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                yMax,
-                                100,
-                                100,
-                                GroupLayout.PREFERRED_SIZE
-                            )
+                            .addComponent(xMax, 100,100,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yMax, 100,100,GroupLayout.PREFERRED_SIZE)
                     )
-                    .addGap(20,20, Int.MAX_VALUE)
+                    .addGap(4,4, Int.MAX_VALUE)
             )
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(8)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMinLbl,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                xMin,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                xMaxLbl,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                xMax,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
+                            .addComponent(xMinLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(xMin,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(xMaxLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(xMax,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(8)
                     .addGroup(
                         createParallelGroup()
-                            .addComponent(
-                                xMaxLbl,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                xMax,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                yMaxLbl,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
-                            .addComponent(
-                                yMax,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.PREFERRED_SIZE
-                            )
+                            .addComponent(yMinLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yMin,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yMaxLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(yMax,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(8)
             )
         }
+        pack()
+        plane.width = mainPanel.width
+        plane.height = mainPanel.height
     }
 }
