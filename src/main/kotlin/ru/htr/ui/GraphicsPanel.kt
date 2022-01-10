@@ -9,7 +9,7 @@ open class GraphicsPanel(val painters: List<Painter>) : JPanel() {
         super.paint(g)
         g?.let {painters.forEach{p ->
             p.paint(it)
-        }
+            }
         }
     }
 }

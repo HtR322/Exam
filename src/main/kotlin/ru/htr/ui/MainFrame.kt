@@ -2,6 +2,7 @@ package ru.htr.ui
 
 import ru.htr.ui.painting.CartesianPainter
 import ru.htr.ui.painting.CartesianPlane
+import ru.htr.ui.painting.FunctionPainter
 import ru.htr.ui.painting.Painter
 import java.awt.Color
 import java.awt.Dimension
@@ -50,7 +51,8 @@ class MainFrame: JFrame() {
         )
 
         val cartesianPainter = CartesianPainter(plane)
-        val painters = mutableListOf(cartesianPainter)
+        val functionPainter = FunctionPainter(plane)
+        val painters = mutableListOf(cartesianPainter, functionPainter)
 
         mainPanel = GraphicsPanel(painters).apply {
             background = Color.WHITE
