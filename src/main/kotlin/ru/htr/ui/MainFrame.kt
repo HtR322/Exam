@@ -62,10 +62,10 @@ class MainFrame: JFrame() {
 
         val cartesianPainter = CartesianPainter(plane)
         val functionPainter = FunctionPainter(plane)
-        functionPainter.function = {x : Double -> x + 1/x}
+        functionPainter.function = {x : Double -> x + 1 / x}
         val paramFunctionPainter = ParamFunctionPainter(plane, tMin.value as Double, tMax.value as Double)
-        paramFunctionPainter.funcX = {t: Double -> cos(t) * cos(t) + 2 * cos(t)}
-        paramFunctionPainter.funcY = {t: Double -> sin(t) * cos(t) + 2 * sin(t)}
+        paramFunctionPainter.funcX = {t: Double -> 16 * sin(t) * sin(t) * sin(t)}
+        paramFunctionPainter.funcY = {t: Double -> 13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t)}
         val painters = mutableListOf(cartesianPainter, functionPainter, paramFunctionPainter)
 
         mainPanel = GraphicsPanel(painters).apply {
