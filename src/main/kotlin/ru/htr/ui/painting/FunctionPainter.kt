@@ -6,7 +6,7 @@ class FunctionPainter(private val plane: CartesianPlane) : Painter
 {
 
     var funColor : Color = Color.BLUE
-    var polynom: (Double) -> Double = {x: Double -> x + 1/x}
+    var function: (Double) -> Double = { x -> x}
 
 
     override  fun paint(g: Graphics) {
@@ -23,14 +23,11 @@ class FunctionPainter(private val plane: CartesianPlane) : Painter
             setRenderingHints(rh)
 
             with(plane) {
-                    for (i in 0 until width) {
-                        setRenderingHints(rh)
+                setRenderingHints(rh)
                         for (i in 0..width) {
-                            drawLine(i, yCrt2Scr(polynom(xScr2Crt(i))), i + 1, yCrt2Scr(polynom(xScr2Crt(i))))
+                            drawLine(i, yCrt2Scr(function(xScr2Crt(i))), i + 1, yCrt2Scr(function(xScr2Crt(i+1))))
                         }
                     }
                 }
+            }
         }
-    }
-
-}
