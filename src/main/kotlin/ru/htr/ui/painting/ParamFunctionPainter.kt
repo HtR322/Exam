@@ -11,7 +11,7 @@ class ParamFunctionPainter(val plane: CartesianPlane, var t_min: Double, var t_m
     override fun paint(g: Graphics) {
         with(g as Graphics2D) {
             color = funColor
-            stroke = BasicStroke(2F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+            stroke = BasicStroke(4F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
             val rh = mapOf(
                 RenderingHints.KEY_ANTIALIASING to RenderingHints.VALUE_ANTIALIAS_ON,
                 RenderingHints.KEY_INTERPOLATION to RenderingHints.VALUE_INTERPOLATION_BICUBIC,
