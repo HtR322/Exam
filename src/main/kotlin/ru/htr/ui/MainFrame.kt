@@ -4,11 +4,11 @@ import ru.htr.ui.painting.*
 import ru.htr.ui.painting.Painter
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
+import java.awt.event.*
 import java.lang.Math.cos
 import java.lang.Math.sin
 import javax.swing.*
+import kotlin.math.ln
 
 class MainFrame: JFrame() {
     private val minDim = Dimension(600,400)
@@ -22,6 +22,8 @@ class MainFrame: JFrame() {
     private val yMaxLbl: JLabel
     private val tMinLbl: JLabel
     private val tMaxLbl: JLabel
+    private val FunColLbl: JLabel = JLabel("Function color")
+    private val ParFunColLbl: JLabel = JLabel("Parametric function color")
     private val xMinM: SpinnerNumberModel
     private val xMaxM: SpinnerNumberModel
     private val yMinM: SpinnerNumberModel
@@ -34,6 +36,8 @@ class MainFrame: JFrame() {
     private val yMax: JSpinner
     private val tMin: JSpinner
     private val tMax: JSpinner
+    private val colPanel: JPanel
+    private val colPanelPar: JPanel
 
 
     init {
@@ -62,10 +66,10 @@ class MainFrame: JFrame() {
 
         val cartesianPainter = CartesianPainter(plane)
         val functionPainter = FunctionPainter(plane)
-        functionPainter.function = {x : Double -> x + 1 / x}
+        functionPainter.function = {x : Double -> (x + 3) / (2 * x - 1)}
         val paramFunctionPainter = ParamFunctionPainter(plane, tMin.value as Double, tMax.value as Double)
-        paramFunctionPainter.funcX = {t: Double -> 16 * sin(t) * sin(t) * sin(t)}
-        paramFunctionPainter.funcY = {t: Double -> 13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t)}
+        paramFunctionPainter.funcX = {t: Double -> ln(t) * sin(t)}
+        paramFunctionPainter.funcY = {t: Double -> cos(t)}
         val painters = mutableListOf(cartesianPainter, functionPainter, paramFunctionPainter)
 
         mainPanel = GraphicsPanel(painters).apply {
@@ -81,6 +85,14 @@ class MainFrame: JFrame() {
         })
 
         controlPanel = JPanel()
+
+        colPanel = JPanel().apply {
+            background = functionPainter.funColor
+        }
+
+        colPanelPar = JPanel().apply {
+            background = paramFunctionPainter.funColor
+        }
 
         xMinLbl =JLabel().apply {
             text = "Xmin: "
@@ -131,6 +143,26 @@ class MainFrame: JFrame() {
             paramFunctionPainter.t_max = tMax.value as Double
             mainPanel.repaint()
         }
+        colPanel.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                val background1 = JColorChooser.showDialog(null, "Select a color", Color.BLUE)
+                if (background1 != null) {
+                    colPanel.background = background1
+                    functionPainter.funColor = background1
+                    mainPanel.repaint()
+                }
+            }
+        })
+        colPanelPar.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                val background1 = JColorChooser.showDialog(null, "Select a color", Color.RED)
+                if (background1 != null) {
+                    colPanelPar.background = background1
+                    paramFunctionPainter.funColor = background1
+                    mainPanel.repaint()
+                }
+            }
+        })
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
@@ -187,7 +219,7 @@ class MainFrame: JFrame() {
                             .addComponent(xMin, 100,100,GroupLayout.PREFERRED_SIZE)
                             .addComponent(yMin, 100,100,GroupLayout.PREFERRED_SIZE)
                     )
-                    .addGap(30)
+                    .addGap(25)
                     .addGroup(
                         createParallelGroup()
                             .addComponent(xMaxLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
@@ -199,7 +231,7 @@ class MainFrame: JFrame() {
                             .addComponent(xMax, 100,100,GroupLayout.PREFERRED_SIZE)
                             .addComponent(yMax, 100,100,GroupLayout.PREFERRED_SIZE)
                     )
-                    .addGap(30)
+                    .addGap(25)
                     .addGroup(
                         createParallelGroup()
                             .addComponent(tMaxLbl,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.DEFAULT_SIZE)
@@ -210,6 +242,24 @@ class MainFrame: JFrame() {
                         createParallelGroup()
                             .addComponent(tMax, 100,100,GroupLayout.PREFERRED_SIZE)
                             .addComponent(tMin, 100,100,GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(25)
+                    .addGroup(
+                        createParallelGroup()
+                            .addComponent(FunColLbl,
+                                GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.PREFERRED_SIZE )
+                            .addComponent(ParFunColLbl,
+                                GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.PREFERRED_SIZE,
+                                GroupLayout.PREFERRED_SIZE)
+                    )
+                    .addGap(4)
+                    .addGroup(
+                        createParallelGroup()
+                            .addComponent(colPanel,20,20,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colPanelPar,20,20,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(4,4, Int.MAX_VALUE)
             )
@@ -224,6 +274,8 @@ class MainFrame: JFrame() {
                             .addComponent(xMax,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                             .addComponent(tMaxLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                             .addComponent(tMax,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FunColLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colPanel,20,20,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(8)
                     .addGroup(
@@ -234,6 +286,8 @@ class MainFrame: JFrame() {
                             .addComponent(yMax,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                             .addComponent(tMinLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
                             .addComponent(tMin,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ParFunColLbl,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE,GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colPanelPar,20,20,GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(8)
             )
